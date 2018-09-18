@@ -30,7 +30,8 @@ namespace JwtAuthSample.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name,"jesse"),
-                    new Claim(ClaimTypes.Role,"admin")
+                    new Claim(ClaimTypes.Role,"user"),
+                    new Claim("SuperAdminOnly", "true")
                 };
                 var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting.SecretKey)), SecurityAlgorithms.HmacSha256);
                 var token = new JwtSecurityToken(issuer: _jwtSetting.Issuer, audience: _jwtSetting.Audience, claims: claims, notBefore: DateTime.Now, expires: DateTime.Now.AddMinutes(10), signingCredentials: signingCredentials);

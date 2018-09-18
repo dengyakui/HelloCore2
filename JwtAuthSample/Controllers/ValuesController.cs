@@ -8,14 +8,14 @@ namespace JwtAuthSample.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = "SuperAdminOnly")]
     public class ValuesController : ControllerBase
     {
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return User.Claims.Select(c => c.Type + " " + c.Value).ToList();
         }
 
         // GET api/values/5
