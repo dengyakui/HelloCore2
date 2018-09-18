@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace RequestPipe
+namespace MvcAuthSample
 {
     public class Startup
     {
@@ -14,7 +17,15 @@ namespace RequestPipe
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRouting();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(o =>
+                {
+                    o.LoginPath = "/home/testlogin";
+                    o.Cookie.Expiration = TimeSpan.FromMinutes(1);
+                    //o.Cookie.Name = "MyCookieAuth";
+                    o.SlidingExpiration = false;
+                });
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,16 +36,14 @@ namespace RequestPipe
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouter(r => r.MapGet("/action", context => context.Response.WriteAsync("this is an action")));
+            app.UseAuthentication();
+           
+            app.UseMvcWithDefaultRoute();
 
-
-            var routeHandler = new RouteHandler(context => context.Response.WriteAsync("this is an task"));
-
-            app.UseRouter(new Route(routeHandler,"/task",app.ApplicationServices.GetService<IInlineConstraintResolver>()));
-
-            app.Run(context => context.Response.WriteAsync("end..."));
-
-
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hello World!");
+            });
         }
     }
 }
