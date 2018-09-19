@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace JwtAuthSample
+namespace JwtAuth
 {
     public class Program
     {
@@ -19,6 +19,7 @@ namespace JwtAuthSample
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration(builder=>builder.AddJsonFile("JwtSetting.json"))
                 .UseStartup<Startup>();
     }
 }

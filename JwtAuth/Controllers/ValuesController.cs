@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-namespace JwtAuthSample.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+namespace JwtAuth.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "SuperAdminOnly")]
+    [Authorize]
     public class ValuesController : ControllerBase
     {
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return User.Claims.Select(c => c.Type + " " + c.Value).ToList();
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

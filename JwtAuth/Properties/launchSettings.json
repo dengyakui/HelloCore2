@@ -4,8 +4,8 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:11566",
-      "sslPort": 44389
+      "applicationUrl": "http://localhost:32920",
+      "sslPort": 44375
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "JwtAuthSample": {
+    "JwtAuth": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",
