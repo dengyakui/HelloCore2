@@ -21,6 +21,11 @@ namespace JwtAuth
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var movie = Configuration.GetSection("Movie").Get<Movie>();
+
+            var moviePrice = Configuration.GetValue<string>("Movie:Price");
+
+            var connectionStr = Configuration.GetConnectionString("TestDbConnection");
         }
 
         public IConfiguration Configuration { get; }
@@ -30,8 +35,8 @@ namespace JwtAuth
         {
             services.Configure<JwtSetting>(Configuration);
 
-            JwtSetting jwtSetting = new JwtSetting();
-            Configuration.Bind(jwtSetting);
+            JwtSetting jwtSetting = Configuration.Get<JwtSetting>();
+            
             if (string.IsNullOrEmpty(jwtSetting.issuer))
             {
                 throw new NullReferenceException(nameof(jwtSetting));
@@ -57,7 +62,7 @@ namespace JwtAuth
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,6 +77,13 @@ namespace JwtAuth
             app.UseHttpsRedirection();
             app.UseMvc();
         }
+    }
+
+    public class Movie
+    {
+        public string Price { get; set; }
+        public string Name { get; set; }
+       
     }
 
 }
