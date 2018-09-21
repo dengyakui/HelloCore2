@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPipe", "MyPipe\MyPipe.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcAuthSample", "MvcAuthSample\MvcAuthSample.csproj", "{07EAB26E-FC24-480D-934D-C9D48BBEFFF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtAuth", "JwtAuth\JwtAuth.csproj", "{E9C1DBB4-0DD4-45A6-BBDD-065DA0794C29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuth", "JwtAuth\JwtAuth.csproj", "{E9C1DBB4-0DD4-45A6-BBDD-065DA0794C29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentitySample", "IdentitySample\IdentitySample.csproj", "{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E9C1DBB4-0DD4-45A6-BBDD-065DA0794C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9C1DBB4-0DD4-45A6-BBDD-065DA0794C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9C1DBB4-0DD4-45A6-BBDD-065DA0794C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
