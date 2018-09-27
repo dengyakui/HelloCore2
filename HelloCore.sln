@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcAuthSample", "MvcAuthSam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuth", "JwtAuth\JwtAuth.csproj", "{E9C1DBB4-0DD4-45A6-BBDD-065DA0794C29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentitySample", "IdentitySample\IdentitySample.csproj", "{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityAuthSample", "IdentityAuthSample\IdentityAuthSample.csproj", "{45635985-A6B4-4096-94A6-405CC4B116CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{E9C1DBB4-0DD4-45A6-BBDD-065DA0794C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9C1DBB4-0DD4-45A6-BBDD-065DA0794C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9C1DBB4-0DD4-45A6-BBDD-065DA0794C29}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBCC6F6A-7750-435C-9067-CFF8CC0D4D1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45635985-A6B4-4096-94A6-405CC4B116CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45635985-A6B4-4096-94A6-405CC4B116CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45635985-A6B4-4096-94A6-405CC4B116CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45635985-A6B4-4096-94A6-405CC4B116CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
