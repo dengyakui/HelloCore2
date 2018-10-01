@@ -9,8 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using IdentityServer4;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace IdentityServerCenter
+namespace ClientCredentailApi
 {
     public class Startup
     {
@@ -24,12 +27,14 @@ namespace IdentityServerCenter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddInMemoryApiResources(Config.GetResource())
-                .AddInMemoryClients(Config.GetClients())
-                .AddTestUsers(Config.GetTestUsers());
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http://localhost:5000";
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = "api";
+                });
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,8 +45,8 @@ namespace IdentityServerCenter
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseIdentityServer();
-            //app.UseMvc();
+            app.UseAuthentication();
+            app.UseMvc();
         }
     }
 }

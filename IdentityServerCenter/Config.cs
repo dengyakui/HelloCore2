@@ -1,10 +1,10 @@
-﻿using System;
+﻿using IdentityServer4.Models;
+using IdentityServer4.Test;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer4.Models;
-
 namespace IdentityServerCenter
 {
     public class Config
@@ -24,11 +24,11 @@ namespace IdentityServerCenter
                 new Client
                 {
                     ClientId = "client",
-                    AllowedGrantTypes = 
+                    AllowedGrantTypes =
                     {
                         GrantType.ClientCredentials
                     },
-                    ClientSecrets = 
+                    ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
@@ -36,6 +36,33 @@ namespace IdentityServerCenter
                     {
                         "api"
                     }
+                },
+                new Client
+                {
+                    ClientId = "pwdClient",
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedGrantTypes =
+                    {
+                        GrantType.ResourceOwnerPassword
+                    },
+                    AllowedScopes = {"api"}
+
+                }
+            };
+        }
+
+        public static List<TestUser> GetTestUsers()
+        {
+            return new List<TestUser>
+            {
+                new TestUser
+                {
+                    SubjectId = "1",
+                    Username = "jesse",
+                    Password = "123456"
                 }
             };
         }
