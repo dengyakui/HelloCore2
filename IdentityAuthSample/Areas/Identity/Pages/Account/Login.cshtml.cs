@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-
+using IdentityServer4.Test;
+using Microsoft.AspNetCore.Http;
 namespace IdentityAuthSample.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
@@ -18,11 +19,12 @@ namespace IdentityAuthSample.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        private readonly TestUserStore _testUserStore;
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, TestUserStore testUserStore)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _testUserStore = testUserStore;
         }
 
         [BindProperty]
@@ -38,8 +40,7 @@ namespace IdentityAuthSample.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            public string UserName { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
@@ -66,34 +67,62 @@ namespace IdentityAuthSample.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
+        public IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (returnUrl.StartsWith("/"))
+            {
+                return Redirect(returnUrl);
+            }
+            return new OkResult();
+        }
+
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
-                if (result.Succeeded)
+                var user = _testUserStore.FindByUsername(Input.UserName);
+                if (user == null)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
+                    ModelState.AddModelError(nameof(Input.UserName), "user name not exists");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
+                    if (!_testUserStore.ValidateCredentials(Input.UserName, Input.Password))
+                    {
+                        ModelState.AddModelError(nameof(Input.Password), "invalid password");
+                    }
+                    var props = new AuthenticationProperties()
+                    {
+                        IsPersistent = true,
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                    };
+                    await  HttpContext.SignInAsync(user.SubjectId, user.Username, props);
+                    return RedirectToLocal(returnUrl);
                 }
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                //var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                //if (result.Succeeded)
+                //{
+                //    _logger.LogInformation("User logged in.");
+                //    return LocalRedirect(returnUrl);
+                //}
+                //if (result.RequiresTwoFactor)
+                //{
+                //    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                //}
+                //if (result.IsLockedOut)
+                //{
+                //    _logger.LogWarning("User account locked out.");
+                //    return RedirectToPage("./Lockout");
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                //    return Page();
+                //}
             }
 
             // If we got this far, something failed, redisplay form

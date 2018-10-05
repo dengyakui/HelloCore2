@@ -13,13 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuth", "JwtAuth\JwtAuth.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityAuthSample", "IdentityAuthSample\IdentityAuthSample.csproj", "{45635985-A6B4-4096-94A6-405CC4B116CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerCenter", "IdentityServerCenter\IdentityServerCenter.csproj", "{4EFDA5DB-6273-4836-A6F7-569D95D6059A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerCenter", "IdentityServerCenter\IdentityServerCenter.csproj", "{4EFDA5DB-6273-4836-A6F7-569D95D6059A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientCredentailApi", "ClientCredentailApi\ClientCredentailApi.csproj", "{0FAA0486-5C59-4555-8320-105556F26396}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientCredentailApi", "ClientCredentailApi\ClientCredentailApi.csproj", "{0FAA0486-5C59-4555-8320-105556F26396}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThirdPartyDemo", "ThirdPartyDemo\ThirdPartyDemo.csproj", "{083FF139-B573-4D6B-8FA9-EFC202EA0C39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThirdPartyDemo", "ThirdPartyDemo\ThirdPartyDemo.csproj", "{083FF139-B573-4D6B-8FA9-EFC202EA0C39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PwdClient", "PwdClient\PwdClient.csproj", "{23260913-F827-439C-A3DD-DB22FFD8C576}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PwdClient", "PwdClient\PwdClient.csproj", "{23260913-F827-439C-A3DD-DB22FFD8C576}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcClient", "MvcClient\MvcClient.csproj", "{0C51E9C7-0686-4AFF-A70A-C9B3CF0DE66F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{23260913-F827-439C-A3DD-DB22FFD8C576}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23260913-F827-439C-A3DD-DB22FFD8C576}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23260913-F827-439C-A3DD-DB22FFD8C576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C51E9C7-0686-4AFF-A70A-C9B3CF0DE66F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C51E9C7-0686-4AFF-A70A-C9B3CF0DE66F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C51E9C7-0686-4AFF-A70A-C9B3CF0DE66F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C51E9C7-0686-4AFF-A70A-C9B3CF0DE66F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

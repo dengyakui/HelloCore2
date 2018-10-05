@@ -30,6 +30,12 @@ namespace IdentityAuthSample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryClients(Config.GetClients())
+                .AddTestUsers(Config.GetTestUsers())
+                .AddInMemoryApiResources(Config.GetResource())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources());
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -38,29 +44,31 @@ namespace IdentityAuthSample
             });
 
             services.AddDbContext<ApplicationDbContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("MyDb")); });
-                
+
 
             services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-    
 
-            
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddRazorPagesOptions(options =>
                 {
                     options.AllowAreas = true;
                     options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Login");
                 });
+
 
             services.ConfigureApplicationCookie(o =>
             {
-                o.Cookie.Name = "MyCookie";
-                //o.LoginPath = "/account/login";
+                //o.Cookie.Name = "MyCookie";
+                //o.LoginPath = "/identity/account/login";
                 //o.LogoutPath = "/account/logout";
             });
-            
+
             services.AddSingleton<IEmailSender, MyEmailSender>();
 
         }
@@ -77,15 +85,9 @@ namespace IdentityAuthSample
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseIdentityServer();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
-            app.UseAuthentication();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
